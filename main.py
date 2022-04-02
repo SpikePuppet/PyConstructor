@@ -25,11 +25,12 @@ def startup_message():
 
 if __name__ == "__main__":
     directory_to_be_monitored = sys.argv[1]
+    recursive = sys.argv[2]
     startup_message()
 
     fileHandler = ProjectWatcher()
     observer = Observer()
-    observer.schedule(fileHandler, path=directory_to_be_monitored, recursive=True)
+    observer.schedule(fileHandler, path=directory_to_be_monitored, recursive=recursive)
     observer.start()
 
     try:

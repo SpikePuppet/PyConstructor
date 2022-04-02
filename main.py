@@ -1,3 +1,5 @@
+import shlex
+import subprocess
 import time
 import sys
 import yaml
@@ -12,25 +14,33 @@ class ProjectWatcher(FileSystemEventHandler):
         self.commands = commands
 
     @staticmethod
-    def print_commands():
+    def run_commands():
         for index in range(0, len(commands)):
-            print(commands[index])
+            command_items = shlex.split(commands[index], posix=False)
+            if ">" in command_items:
+                command_items.remove(">")
+                print(command_items[-1])
+                with open(command_items[-1]) as fd:
+                    result = subprocess.run(command_items, stdout=fd)
+            else:
+                result = subprocess.run(command_items, capture_output=True, text=True)
+                print(result.stdout)
 
     def on_modified(self, event):
         print(f'The file {event.src_path} was modified')
-        self.print_commands()
+        self.run_commands()
 
     def on_created(self, event):
         print(f'The file {event.src_path} was created! Nice')
-        self.print_commmands()
+        self.run_commands()
 
     def on_deleted(self, event):
         print(f'The file {event.src_path} was created! D:')
-        self.print_commmands()
+        self.run_commands()
 
     def on_moved(self, event):
         print(f'The file {event.src_path} was moved? :O')
-        self.print_commmands()
+        self.run_commands()
 
     def execute_observer_options(self):
         pass

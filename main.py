@@ -1,0 +1,1 @@
+print('Welcome to PyConstructor v0.1')

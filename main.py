@@ -17,6 +17,9 @@ class ProjectWatcher(FileSystemEventHandler):
     def on_moved(self, event):
         print(f'The file {event.src_path} was moved? :O')
 
+    def execute_observer_options(self):
+        pass
+
 
 def startup_message():
     print('Welcome to PyConstructor v0.1')

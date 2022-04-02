@@ -1,5 +1,5 @@
 import time
-import logging
+import sys
 from watchdog.observers import Observer
 from watchdog.events import FileSystemEventHandler
 
@@ -24,11 +24,12 @@ def startup_message():
 
 
 if __name__ == "__main__":
+    directory_to_be_monitored = sys.argv[1]
     startup_message()
 
     fileHandler = ProjectWatcher()
     observer = Observer()
-    observer.schedule(fileHandler, path='/Users/rhysjohns/Code/Python/PyConstructor/test_dir', recursive=True)
+    observer.schedule(fileHandler, path=directory_to_be_monitored, recursive=True)
     observer.start()
 
     try:

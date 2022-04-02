@@ -1,0 +1,8 @@
+---
+
+- observer:
+    execute:
+      - ls
+      - touch test.log
+      - echo "Hello, World!" > test.log
+      - cat test.log

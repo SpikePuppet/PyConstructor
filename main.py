@@ -5,9 +5,6 @@ from watchdog.events import FileSystemEventHandler
 
 
 class ProjectWatcher(FileSystemEventHandler):
-    logger = logging.getLogger('ProjectWatcher')
-    logger.setLevel(level=logging.DEBUG)
-
     def on_modified(self, event):
         print(f'The file {event.src_path} was modified')
 
